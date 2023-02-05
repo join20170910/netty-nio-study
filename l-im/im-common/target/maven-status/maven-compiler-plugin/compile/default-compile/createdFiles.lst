@@ -1,0 +1,10 @@
+com\lld\im\common\model\RequestBase.class
+com\lld\im\common\enums\FriendShipStatusEnum.class
+com\lld\im\common\ResponseVO$ResponseVOBuilder.class
+com\lld\im\common\exception\ApplicationExceptionEnum.class
+com\lld\im\common\BaseErrorCode.class
+com\lld\im\common\ResponseVO.class
+com\lld\im\common\enums\FriendShipErrorCode.class
+com\lld\im\common\enums\DelFlagEnum.class
+com\lld\im\common\enums\UserErrorCode.class
+com\lld\im\common\exception\ApplicationException.class
