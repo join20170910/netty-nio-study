@@ -1,3 +1,8 @@
 test: 123
 name: john
 age: 18
+wshen:
+  tcpPort: 9000
+  webSocketPort: 19000
+  bossThreadSize: 1
+  workThreadSize: 8

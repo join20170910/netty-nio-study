@@ -1,5 +1,6 @@
 package com.ws.st.tcp.server;
 
+import com.ws.st.codec.config.BootstrapConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,12 +14,12 @@ import org.slf4j.LoggerFactory;
 
 public class JohnServer {
     private final static Logger logger = LoggerFactory.getLogger(JohnServer.class);
-    private int port;
+    private BootstrapConfig.TcpConfig tcpConfig;
 
-    public JohnServer(int port) throws InterruptedException {
-        this.port = port;
-        EventLoopGroup mainGroup = new NioEventLoopGroup();
-        NioEventLoopGroup subGroup = new NioEventLoopGroup(10);
+    public JohnServer(BootstrapConfig.TcpConfig tcpConfig) throws InterruptedException {
+        this.tcpConfig = tcpConfig;
+        EventLoopGroup mainGroup = new NioEventLoopGroup(tcpConfig.getBossThreadSize());
+        NioEventLoopGroup subGroup = new NioEventLoopGroup(tcpConfig.getWorkThreadSize());
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(mainGroup,subGroup)
                 .channel(NioServerSocketChannel.class)
@@ -32,10 +33,10 @@ public class JohnServer {
 
                     }
                 });
-        ChannelFuture sync = serverBootstrap.bind(port).sync();
+        ChannelFuture sync = serverBootstrap.bind(tcpConfig.getTcpPort()).sync();
         sync.addListener(future -> {
               if (future.isSuccess()){
-                  logger.info("start server [{}]", this.port);
+                  logger.info("start server");
               }
         });
 

@@ -1,5 +1,6 @@
 package com.ws.st.tcp.server;
 
+import com.ws.st.codec.config.BootstrapConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,12 +15,12 @@ import org.slf4j.LoggerFactory;
 
 public class JohnWebSocketServer {
     private final static Logger logger = LoggerFactory.getLogger(JohnWebSocketServer.class);
-    private int port;
+    private BootstrapConfig.TcpConfig tcpConfig;
 
-    public JohnWebSocketServer(int port) throws InterruptedException {
-        this.port = port;
-        EventLoopGroup mainGroup = new NioEventLoopGroup();
-        NioEventLoopGroup subGroup = new NioEventLoopGroup(10);
+    public JohnWebSocketServer(BootstrapConfig.TcpConfig tcpConfig) throws InterruptedException {
+        this.tcpConfig = tcpConfig;
+        EventLoopGroup mainGroup = new NioEventLoopGroup(tcpConfig.getBossThreadSize());
+        NioEventLoopGroup subGroup = new NioEventLoopGroup(tcpConfig.getWorkThreadSize());
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(mainGroup,subGroup)
                 .channel(NioServerSocketChannel.class)
@@ -46,10 +47,10 @@ public class JohnWebSocketServer {
                         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
                     }
                 });
-        ChannelFuture sync = serverBootstrap.bind(port).sync();
+        ChannelFuture sync = serverBootstrap.bind(tcpConfig.getTcpPort()).sync();
         sync.addListener(future -> {
               if (future.isSuccess()){
-                  logger.info("start websocket server [{}]", this.port);
+                  logger.info("start websocket server [{}]");
               }
         });
 
