@@ -1,7 +1,6 @@
 package com.lld.im.common.model.message;
 
 import lombok.Data;
-import sun.dc.pr.PRError;
 
 /**
  * @description:
