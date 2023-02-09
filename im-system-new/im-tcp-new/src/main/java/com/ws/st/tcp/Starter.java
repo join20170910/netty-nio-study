@@ -9,16 +9,22 @@ import java.net.URL;
 
 public class Starter {
   public static void main(String[] args) {
-      URL resource = Starter.class.getClassLoader().getResource("config.yml");
-
-      Yaml yaml = new Yaml();
-
-      BootstrapConfig bootstrapConfig = yaml.loadAs(Starter.class.getClassLoader().getResourceAsStream("config.yml"), BootstrapConfig.class);
-      try {
-          JohnServer johnServer = new JohnServer(bootstrapConfig.getWshen());
-         // JohnWebSocketServer johnWebSocketServer = new JohnWebSocketServer(tcpConfig);
-
-      } catch (InterruptedException e) {
-      }
+    start("config.yml");
   }
+
+    private static void start(String path) {
+        URL resource = Starter.class.getClassLoader().getResource(path);
+
+        Yaml yaml = new Yaml();
+
+        BootstrapConfig bootstrapConfig = yaml.loadAs(Starter.class.getClassLoader().getResourceAsStream(path), BootstrapConfig.class);
+        try {
+            new JohnServer(bootstrapConfig.getWshen()).start();
+            new JohnWebSocketServer(bootstrapConfig.getWshen()).start();
+
+        } catch (InterruptedException e) {
+
+            System.exit(500);
+        }
+    }
 }

@@ -1,11 +1,10 @@
 package com.ws.st.tcp.server;
 
+import com.ws.st.codec.MessageDecoder;
 import com.ws.st.codec.config.BootstrapConfig;
+import com.ws.st.tcp.handler.NettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -15,12 +14,13 @@ import org.slf4j.LoggerFactory;
 public class JohnServer {
     private final static Logger logger = LoggerFactory.getLogger(JohnServer.class);
     private BootstrapConfig.TcpConfig tcpConfig;
+    private ServerBootstrap serverBootstrap;
 
     public JohnServer(BootstrapConfig.TcpConfig tcpConfig) throws InterruptedException {
         this.tcpConfig = tcpConfig;
         EventLoopGroup mainGroup = new NioEventLoopGroup(tcpConfig.getBossThreadSize());
         NioEventLoopGroup subGroup = new NioEventLoopGroup(tcpConfig.getWorkThreadSize());
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(mainGroup,subGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 10240) // 服务端可连接队列大小
@@ -30,16 +30,22 @@ public class JohnServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
+                        ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new MessageDecoder())
+                        .addLast(new NettyServerHandler());
 
                     }
                 });
+
+
+
+    }
+    public void start() throws InterruptedException {
         ChannelFuture sync = serverBootstrap.bind(tcpConfig.getTcpPort()).sync();
         sync.addListener(future -> {
-              if (future.isSuccess()){
-                  logger.info("start server");
-              }
+            if (future.isSuccess()){
+                logger.info("start server");
+            }
         });
-
-
     }
 }

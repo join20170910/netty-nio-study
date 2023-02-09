@@ -16,12 +16,13 @@ import org.slf4j.LoggerFactory;
 public class JohnWebSocketServer {
     private final static Logger logger = LoggerFactory.getLogger(JohnWebSocketServer.class);
     private BootstrapConfig.TcpConfig tcpConfig;
+    private ServerBootstrap serverBootstrap = null;
 
     public JohnWebSocketServer(BootstrapConfig.TcpConfig tcpConfig) throws InterruptedException {
         this.tcpConfig = tcpConfig;
         EventLoopGroup mainGroup = new NioEventLoopGroup(tcpConfig.getBossThreadSize());
         NioEventLoopGroup subGroup = new NioEventLoopGroup(tcpConfig.getWorkThreadSize());
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(mainGroup,subGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 10240) // 服务端可连接队列大小
@@ -47,13 +48,14 @@ public class JohnWebSocketServer {
                         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
                     }
                 });
-        ChannelFuture sync = serverBootstrap.bind(tcpConfig.getTcpPort()).sync();
+
+    }
+    public void start() throws InterruptedException {
+        ChannelFuture sync = serverBootstrap.bind(tcpConfig.getWebSocketPort()).sync();
         sync.addListener(future -> {
-              if (future.isSuccess()){
-                  logger.info("start websocket server [{}]");
-              }
+            if (future.isSuccess()){
+                logger.info("start server");
+            }
         });
-
-
     }
 }
