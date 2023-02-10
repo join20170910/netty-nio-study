@@ -30,4 +30,9 @@ public class RedissonTest {
     im.set("im");
     System.out.println(im.get());
     }
+    @Test
+    @DisplayName("Redisson map 测试")
+    public void demo02(){
+        redissonClient.getMap()
+    }
 }
