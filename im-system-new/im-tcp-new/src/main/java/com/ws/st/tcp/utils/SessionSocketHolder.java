@@ -9,13 +9,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * NioSocketChannel 容器
  */
 public class SessionSocketHolder {
-    private static final Map<String, NioSocketChannel> CHANENELS = new ConcurrentHashMap<>();
+    private static final Map<String, NioSocketChannel> CHANNELS = new ConcurrentHashMap<>();
 
-    public static void put(NioSocketChannel channel){
-        CHANENELS.put(channel.remoteAddress().getHostName(),channel);
+    public static void put(String userId, NioSocketChannel channel){
+        CHANNELS.put(userId,channel);
     }
 
-    public static NioSocketChannel get(NioSocketChannel channel){
-        return CHANENELS.get(channel.remoteAddress().getHostName());
+    public static NioSocketChannel get(String userId){
+        return CHANNELS.get(userId);
     }
 }
