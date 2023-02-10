@@ -7,3 +7,5 @@ This launches Redis and restarts it at login. You can check the status of a laun
 
 brew services info redis
 If the service is running, you'll see output like the following:
+URL:
+https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/
