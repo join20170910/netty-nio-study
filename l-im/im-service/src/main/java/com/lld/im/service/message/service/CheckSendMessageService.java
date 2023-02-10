@@ -12,7 +12,6 @@ import com.lld.im.service.group.service.ImGroupMemberService;
 import com.lld.im.service.group.service.ImGroupService;
 import com.lld.im.service.user.dao.ImUserDataEntity;
 import com.lld.im.service.user.service.ImUserService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

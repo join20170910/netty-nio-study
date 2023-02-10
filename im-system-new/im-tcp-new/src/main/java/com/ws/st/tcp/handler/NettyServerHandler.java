@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.ws.st.codec.pack.LoginPack;
 import com.ws.st.codec.proto.Message;
+import com.ws.st.common.constant.Constants;
 import com.ws.st.common.enums.command.ImConnectStatusEnum;
 import com.ws.st.common.enums.command.SystemCommand;
 import com.ws.st.common.model.UserSession;
@@ -14,6 +15,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 
 public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
@@ -40,6 +42,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
              userSession.setConnectState(ImConnectStatusEnum.ONLINE_STATUS.getCode());
              // TODO 启动 初始化 redssion 客户端
             RedissonClient redissonClient = RedisManager.getRedissonClient();
+            RMap<String, String> map = redissonClient.getMap(userSession.getAppId() + Constants.RedisConstants.UserSessionConstants + loginPack.getUserId());
+            map.put(String.valueOf(msg.getMessageHeader().getClientType()),JSONObject.toJSONString(userSession));
 
 
         }
