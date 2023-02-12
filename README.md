@@ -26,3 +26,4 @@ https://www.cnblogs.com/yakniu/p/16183938.html
 工作模式：
 ![](../../../var/folders/m2/8tqyqj754ll8pm2yr06p5__40000gp/T/TemporaryItems/NSIRD_screencaptureui_OcJFmA/截屏2023-02-12 22.49.00.png)
 
+survive 存活  durable 持久化
