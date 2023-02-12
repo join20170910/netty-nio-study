@@ -2,10 +2,10 @@ package com.ws.st.common.enums.command;
 
 public enum SystemCommand implements Command{
     /**
-     *  0 正常； 1 删除
+     *  9000 登录； 9003 登出
      */
     LOGIN(0x2328),
-    DELETE(1),
+    LOGOUT(0x232b),
     ;
     private int command;
     SystemCommand(int command){
