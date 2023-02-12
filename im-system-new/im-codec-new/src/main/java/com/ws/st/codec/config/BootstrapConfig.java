@@ -18,8 +18,10 @@ public class BootstrapConfig {
         private Integer webSocketPort; // webSocket 绑定的端口号
         private Integer bossThreadSize; // boss线程 默认=1
         private Integer workThreadSize; //work线程
+        private Long heardBeatTime; //心跳超时时间 单位为毫秒
         private Integer loginModel;
         private RedisConfig redis;
+
     }
 
 

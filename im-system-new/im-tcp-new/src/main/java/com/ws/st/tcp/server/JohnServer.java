@@ -2,12 +2,14 @@ package com.ws.st.tcp.server;
 
 import com.ws.st.codec.MessageDecoder;
 import com.ws.st.codec.config.BootstrapConfig;
+import com.ws.st.tcp.handler.HearBeatHandler;
 import com.ws.st.tcp.handler.NettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +34,8 @@ public class JohnServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new MessageDecoder())
+                                .addLast(new IdleStateHandler(0,0,10))
+                                .addLast(new HearBeatHandler(tcpConfig.getHeardBeatTime()))
                         .addLast(new NettyServerHandler());
 
                     }

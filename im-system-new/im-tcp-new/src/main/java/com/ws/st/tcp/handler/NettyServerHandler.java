@@ -52,15 +52,18 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
         } else if (command == SystemCommand.LOGOUT.getCommand()){
             // 登出
             // TODO 删除 session redis 信息
-            String userId = (String) ctx.channel().attr(AttributeKey.valueOf(Constants.UserId)).get();
-            Integer appId = (Integer) ctx.channel().attr(AttributeKey.valueOf(Constants.AppId)).get();
-            Integer clientType = (Integer) ctx.channel().attr(AttributeKey.valueOf(Constants.ClientType)).get();
-            SessionSocketHolder.remove(userId,clientType,appId);
-            RedissonClient redissonClient = RedisManager.getRedissonClient();
-            RMap<Object, Object> map = redissonClient.getMap(appId + Constants.RedisConstants.UserSessionConstants
-                    + userId);
-            map.remove(clientType);
+           SessionSocketHolder.removeUserSession((NioSocketChannel) ctx.channel());
+        }else if (command == SystemCommand.PING.getCommand()){
+            // 设置当前时间
+            ctx.channel().attr(AttributeKey.valueOf(Constants.ReadTime)).set(System.currentTimeMillis());
+
         }
 
+    }
+
+    // IdleStateHandler 读写 超时 会触发下一个handler 的userEventTriggered（）方法
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+         // 一般 写一个 单独的 handler
     }
 }
