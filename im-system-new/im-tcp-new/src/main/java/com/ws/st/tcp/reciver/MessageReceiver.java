@@ -7,17 +7,21 @@ import com.rabbitmq.client.Envelope;
 import com.ws.st.common.constant.Constants;
 import com.ws.st.tcp.utils.MqFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
 @Slf4j
 public class MessageReceiver {
+    private static String brokerId;
+
     private static void startReceiverMessage(){
    try{
-       Channel channel = MqFactory.getChannel(Constants.RabbitConstants.MessageService2Im);
-       channel.queueDeclare(Constants.RabbitConstants.MessageService2Im,
+       Channel channel = MqFactory.getChannel(Constants.RabbitConstants.MessageService2Im + brokerId);
+       channel.queueDeclare(Constants.RabbitConstants.MessageService2Im + brokerId,
                true,true,false,null);
-       channel.queueBind(Constants.RabbitConstants.MessageService2Im,Constants.RabbitConstants.MessageService2Im,null);
+       channel.queueBind(Constants.RabbitConstants.MessageService2Im + brokerId,
+               Constants.RabbitConstants.MessageService2Im,brokerId);
        channel.basicConsume(Constants.RabbitConstants.MessageService2Im,false,
                new DefaultConsumer(channel){
                    @Override
@@ -34,6 +38,12 @@ public class MessageReceiver {
    }
     }
     public static void init(){
+        startReceiverMessage();
+    }
+    public static void init(String brokerId){
+        if (StringUtils.isBlank(brokerId)){
+            MessageReceiver.brokerId = brokerId;
+        }
         startReceiverMessage();
     }
 }

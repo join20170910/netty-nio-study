@@ -82,6 +82,7 @@ public class Constants {
         public static final String StoreGroupMessage = "storeGroupMessage";
 
 
+        public static String UserLoginChannel = "signal/channel/LOGIN_USER_INNER_QUEUE";
     }
 
     public static class CallbackCommand{

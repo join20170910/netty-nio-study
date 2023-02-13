@@ -21,9 +21,25 @@ public class BootstrapConfig {
         private Long heardBeatTime; //心跳超时时间 单位为毫秒
         private Integer loginModel;
         private RedisConfig redis;
+        /**
+         * zk配置
+         */
+        private ZkConfig zkConfig;
+        private Integer brokerId;
 
     }
+    @Data
+    public static class ZkConfig {
+        /**
+         * zk连接地址
+         */
+        private String zkAddr;
 
+        /**
+         * zk连接超时时间
+         */
+        private Integer zkConnectTimeOut;
+    }
 
 
     @Data
