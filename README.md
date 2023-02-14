@@ -32,4 +32,6 @@ survive 存活  durable 持久化
 
 7.9
 注册中心
-Eureka  Consul Kubernetes Nacos  Zookeeper   
+Eureka  Consul Kubernetes Nacos  Zookeeper 
+
+![](../../../var/folders/m2/8tqyqj754ll8pm2yr06p5__40000gp/T/TemporaryItems/NSIRD_screencaptureui_LgvnjH/截屏2023-02-13 23.35.21.png)
