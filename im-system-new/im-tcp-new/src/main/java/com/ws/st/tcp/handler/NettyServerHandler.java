@@ -21,7 +21,7 @@ import org.redisson.api.RedissonClient;
 public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
-
+        System.out.println(msg.toString());
         Integer command = msg.getMessageHeader().getCommand();
         // 登录 command
         if (command == SystemCommand.LOGIN.getCommand()){

@@ -14,7 +14,6 @@
       <module fileurl="file://$PROJECT_DIR$/im-system-new/im-tcp-new/im-tcp-new.iml" filepath="$PROJECT_DIR$/im-system-new/im-tcp-new/im-tcp-new.iml" />
       <module fileurl="file://$PROJECT_DIR$/io-study/io-study.iml" filepath="$PROJECT_DIR$/io-study/io-study.iml" />
       <module fileurl="file://$PROJECT_DIR$/l-im/im-service/lld-im-message-store.iml" filepath="$PROJECT_DIR$/l-im/im-service/lld-im-message-store.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/netty-nio-study.iml" filepath="$PROJECT_DIR$/.idea/netty-nio-study.iml" />
       <module fileurl="file://$PROJECT_DIR$/l-im/im-tcp/tcp.iml" filepath="$PROJECT_DIR$/l-im/im-tcp/tcp.iml" />
     </modules>
   </component>
