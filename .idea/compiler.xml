@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tcp" />
         <module name="codec" />
-        <module name="im-codec-new" />
         <module name="im-tcp-new" />
+        <module name="im-codec-new" />
         <module name="lld-im-message-store" />
         <module name="common" />
         <module name="io-study" />
@@ -21,19 +21,19 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="codec" target="8" />
-      <module name="common" target="8" />
-      <module name="im-codec-new" target="8" />
-      <module name="im-common-new" target="8" />
-      <module name="im-message-store" target="8" />
-      <module name="im-message-store-new" target="8" />
-      <module name="im-service-new" target="8" />
-      <module name="im-system" target="8" />
-      <module name="im-system-new" target="8" />
-      <module name="im-tcp-new" target="8" />
-      <module name="io-study" target="8" />
-      <module name="lld-im-message-store" target="8" />
-      <module name="tcp" target="8" />
+      <module name="codec" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="im-codec-new" target="1.8" />
+      <module name="im-common-new" target="1.8" />
+      <module name="im-message-store" target="1.8" />
+      <module name="im-message-store-new" target="1.8" />
+      <module name="im-service-new" target="1.8" />
+      <module name="im-system" target="1.8" />
+      <module name="im-system-new" target="1.8" />
+      <module name="im-tcp-new" target="1.8" />
+      <module name="io-study" target="1.8" />
+      <module name="lld-im-message-store" target="1.8" />
+      <module name="tcp" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

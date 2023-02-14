@@ -14,6 +14,7 @@ public class RedisManager {
     private static Integer loginModel;
 
     public static void init(BootstrapConfig config){
+
         loginModel = config.getWshen().getLoginModel();
         SingleClientStrategy singleClientStrategy = new SingleClientStrategy();
         redissonClient = singleClientStrategy.getRedissonClient(config.getWshen().getRedis());

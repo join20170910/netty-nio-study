@@ -21,6 +21,7 @@ public class Starter {
   }
 
     private static void start(String path) {
+
         URL resource = Starter.class.getClassLoader().getResource(path);
         Yaml yaml = new Yaml();
         BootstrapConfig bootstrapConfig = yaml.loadAs(Starter.class.getClassLoader().getResourceAsStream(path), BootstrapConfig.class);

@@ -1,3 +1,5 @@
+test hotfix
+test feature-001
 brew install redis
 Starting and stopping Redis using launchd
 As an alternative to running Redis in the foreground, you can also use launchd to start the process in the background:
