@@ -1,9 +1,11 @@
 package com.ws.st.tcp.reciver;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+import com.ws.st.codec.proto.MessagePack;
 import com.ws.st.common.constant.Constants;
 import com.ws.st.tcp.utils.MqFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +29,22 @@ public class MessageReceiver {
                    @Override
                    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                        //TODO 处理消息服务发来的消息
-                       String msgStr = new String(body);
-                       log.info("接收到消息内容：[{}]",msgStr);
+                      // String msgStr = new String(body);
+
+                       try {
+                           String msgStr = new String(body);
+
+                           log.info("接收到消息内容：[{}]",msgStr);
+                           MessagePack messagePack =
+                                   JSONObject.parseObject(msgStr, MessagePack.class);
+                        //处理消息
+
+                           channel.basicAck(envelope.getDeliveryTag(),false);
+
+                       }catch (Exception e){
+                           e.printStackTrace();
+                           channel.basicNack(envelope.getDeliveryTag(),false,false);
+                       }
                    }
                }
 
