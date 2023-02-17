@@ -47,5 +47,6 @@ sdk  接入层 逻辑层  存储层
 
 SessionSocketHolder  （netty session 容器）
 BaseProcess.process() 处理消息， 发送消息
+![img.png](img.png)
 MessageProducer 生产消息
 MessageReceiver 接收消息 
